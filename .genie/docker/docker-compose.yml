@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+
+  project-__keyword__:
+    container_name: __keyword__.project
+    build:
+      context: ../../
+      dockerfile: ./conf/__keyword__/Dockerfile
+      args:
+        - USER_ID=$UID
+        - GROUP_ID=$GID
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - static_data:/vol/web
+      - ../../project:/app
+
+volumes:
+  static_data:
+
+
+
