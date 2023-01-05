@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from accounts.views import accounts_graphql_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/graphql/', accounts_graphql_view),
 ]
