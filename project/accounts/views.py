@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Graphene imports
 from graphene_django.views import GraphQLView
-from .schema import schema
+from accounts.schema.schema import schema
 
 
 @csrf_exempt

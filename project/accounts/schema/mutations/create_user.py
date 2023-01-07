@@ -1,5 +1,5 @@
 """
-Schema for the accounts app
+Mutation to create a new user, this is used in the accounts schema.
 """
 
 # Graphene imports
@@ -7,21 +7,11 @@ import graphene
 from graphene_django import DjangoObjectType
 
 # Local imports
-from .models import User
+from accounts.schema.types import UserType
+from accounts.models import User
 
 
-class UserType(DjangoObjectType):
-    class Meta:
-        model = User
-
-
-class Query(graphene.ObjectType):
-    users = graphene.List(UserType)
-
-    def resolve_users(self, info):
-        return User.objects.all()
-
-
+# Mutation to create a new user
 class CreateUser(graphene.Mutation):
     user = graphene.Field(UserType)
 
@@ -39,10 +29,3 @@ class CreateUser(graphene.Mutation):
         user.set_password(password)
         user.save()
         return CreateUser(user=user)
-
-
-class Mutation(graphene.ObjectType):
-    create_user = CreateUser.Field()
-
-
-schema = graphene.Schema(query=Query, mutation=Mutation)
