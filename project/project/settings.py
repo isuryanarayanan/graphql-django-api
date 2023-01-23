@@ -47,9 +47,23 @@ INSTALLED_APPS = [
     # Third party apps
     'graphene_django',
     'rest_framework',
+    'corsheaders'
 ]
 
+# Cors headers
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',
+]
+
+
 MIDDLEWARE = [
+
+    # Cors middleware
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

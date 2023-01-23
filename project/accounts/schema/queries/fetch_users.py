@@ -7,7 +7,7 @@ import graphene
 from graphene_django import DjangoObjectType
 
 # Local imports
-from accounts.schema.types import UserType
+from accounts.schema.types import BaseUserType as UserType
 from accounts.models import User
 
 

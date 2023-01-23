@@ -12,7 +12,7 @@ from graphene_django import DjangoObjectType
 from graphql import GraphQLError
 
 # Local imports
-from accounts.schema.types import UserType
+from accounts.schema.types import BaseUserType as UserType
 from accounts.models import User
 
 
@@ -29,13 +29,15 @@ class ObtainJSONWebToken(graphene.Mutation):
     def mutate(self, info, email, password):
         user = authenticate(info.context, email=email, password=password)
         if user is None:
-            raise GraphQLError('Invalid email or password')
+            return GraphQLError('Invalid credentials')
 
         refresh = RefreshToken.for_user(user)
         return ObtainJSONWebToken(
             user=user,
             access_token=str(refresh.access_token),
-            refresh_token=str(refresh)
+            refresh_token=str(refresh),
+            message='User logged in successfully',
+            status=200
         )
 
 
@@ -52,12 +54,14 @@ class RefreshJSONWebToken(graphene.Mutation):
         try:
             refresh = RefreshToken(refresh_token)
         except Exception:
-            raise GraphQLError('Invalid refresh token')
+            return GraphQLError('Invalid refresh token')
 
         user = User.objects.get(id=refresh['user_id'])
         refresh = RefreshToken.for_user(user)
         return RefreshJSONWebToken(
             user=user,
             access_token=str(refresh.access_token),
-            refresh_token=str(refresh)
+            refresh_token=str(refresh),
+            message='Token refreshed successfully',
+            status=200
         )

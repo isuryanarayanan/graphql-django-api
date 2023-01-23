@@ -11,7 +11,7 @@ from graphql import GraphQLError
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 # Local imports
-from accounts.schema.types import UserType
+from accounts.schema.types import BaseUserType as UserType
 from accounts.models import User
 
 

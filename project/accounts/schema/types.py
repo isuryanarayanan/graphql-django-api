@@ -10,6 +10,6 @@ from accounts.models import User
 
 
 # Graphql representation of the User model
-class UserType(DjangoObjectType):
+class BaseUserType(DjangoObjectType):
     class Meta:
         model = User
