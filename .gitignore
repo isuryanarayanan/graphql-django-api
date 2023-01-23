@@ -1,8 +1,7 @@
 conf/
 configurations/
 
-**/migrations/** !**/migrations/__init__.py
-!**/migrations
-!**/migrations/__init__.py
+# **/migrations/** !**/migrations/__init__.py
+migrations/** !migrations/__init__.py
 
 **/db.sqlite3
